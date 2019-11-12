@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <view contentMode="scaleToFill" id="DS2-c9-D9M" customClass="AppBottomSearchBar" customModule="Slovarik" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="241"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vd-On-Cie">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="241"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tTC-MJ-EDs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="241"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6HT-mS-e7U">
+                                <rect key="frame" x="16" y="16" width="382" height="209"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="4DD-Q3-dTm">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="90"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIW-sd-0lb">
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="m5f-0S-yBj"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yYX-D5-puC">
+                                                <rect key="frame" x="0.0" y="24" width="382" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="hGM-Dw-mmN"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="Word"/>
+                                                    <segment title="Date"/>
+                                                </segments>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </segmentedControl>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5lW-Nf-oyW">
+                                                <rect key="frame" x="0.0" y="59" width="382" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="loz-AF-gUL"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="DESC"/>
+                                                    <segment title="ASC"/>
+                                                </segments>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="HpG-ZP-no3">
+                                        <rect key="frame" x="0.0" y="106" width="382" height="103"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9k-j6-0cK">
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="20"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="eZJ-sY-59c"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="4xd-9y-GpN">
+                                                <rect key="frame" x="0.0" y="24" width="382" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="lNK-da-ca4"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </searchBar>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kV1-P5-Wfu">
+                                                <rect key="frame" x="0.0" y="72" width="382" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="Cq7-zT-fuj"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="Name"/>
+                                                    <segment title="Description"/>
+                                                </segments>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="6HT-mS-e7U" firstAttribute="leading" secondItem="tTC-MJ-EDs" secondAttribute="leading" constant="16" id="1ZD-ix-Cvh"/>
+                            <constraint firstAttribute="bottom" secondItem="6HT-mS-e7U" secondAttribute="bottom" priority="999" constant="16" id="7pa-Er-wmE"/>
+                            <constraint firstAttribute="trailing" secondItem="6HT-mS-e7U" secondAttribute="trailing" constant="16" id="EdF-6y-5dJ"/>
+                            <constraint firstItem="6HT-mS-e7U" firstAttribute="top" secondItem="tTC-MJ-EDs" secondAttribute="top" constant="16" id="Z76-06-LrF"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="1vd-On-Cie" secondAttribute="trailing" id="0gT-vO-fFp"/>
+                <constraint firstItem="1vd-On-Cie" firstAttribute="leading" secondItem="DS2-c9-D9M" secondAttribute="leading" id="EQ6-bX-7bn"/>
+                <constraint firstItem="1vd-On-Cie" firstAttribute="top" secondItem="DS2-c9-D9M" secondAttribute="top" id="X3W-uB-CRi"/>
+                <constraint firstAttribute="bottom" secondItem="1vd-On-Cie" secondAttribute="bottom" id="XvC-Xn-ZM1"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="2Gj-At-WAh"/>
+            <connections>
+                <outlet property="blurView" destination="1vd-On-Cie" id="0fE-3Z-iZc"/>
+                <outlet property="blurViewBottomConstraint" destination="XvC-Xn-ZM1" id="Bum-37-elW"/>
+                <outlet property="blurViewLeadingConstraint" destination="EQ6-bX-7bn" id="zxb-bP-g4m"/>
+                <outlet property="blurViewTrailingConstraint" destination="0gT-vO-fFp" id="Bzc-xe-v5K"/>
+                <outlet property="rootStackView" destination="6HT-mS-e7U" id="bMa-fq-Czf"/>
+                <outlet property="rootStackViewBottomConstraint" destination="7pa-Er-wmE" id="2xX-fg-mW3"/>
+                <outlet property="rootStackViewLeadingConstraint" destination="1ZD-ix-Cvh" id="t1T-B1-LI8"/>
+                <outlet property="rootStackViewTopConstraint" destination="Z76-06-LrF" id="573-r3-hqd"/>
+                <outlet property="rootStackViewTrailingConstraint" destination="EdF-6y-5dJ" id="iz9-mr-xhL"/>
+                <outlet property="searchBar" destination="4xd-9y-GpN" id="UGK-BC-Zfb"/>
+                <outlet property="searchSectionTitleLabel" destination="W9k-j6-0cK" id="WqR-Cr-gO4"/>
+                <outlet property="searchSectionTypeSegmentedControl" destination="kV1-P5-Wfu" id="Hsb-dy-qmI"/>
+                <outlet property="searchStackView" destination="HpG-ZP-no3" id="cuq-Et-66p"/>
+                <outlet property="sortSectionSortSegmentedControl" destination="5lW-Nf-oyW" id="gs4-za-DiA"/>
+                <outlet property="sortSectionTitleLabel" destination="XIW-sd-0lb" id="49F-xQ-9p6"/>
+                <outlet property="sortSectionTypeSegmentedControl" destination="yYX-D5-puC" id="D5y-CG-Vbs"/>
+                <outlet property="sortStackView" destination="4DD-Q3-dTm" id="INh-1h-RbU"/>
+            </connections>
+            <point key="canvasLocation" x="-42.028985507246382" y="190.51339285714286"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+</document>

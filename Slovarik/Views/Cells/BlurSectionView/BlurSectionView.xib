@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="pq4-4A-WRA" customClass="BlurSectionView" customModule="Slovarik" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-hu-f8x" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                    <subviews>
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GHT-Jd-YVi">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ncf-dH-yyw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-Dx-KPL">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="DT3-DG-A1U">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBD-Bi-ISl">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WBD-Bi-ISl" firstAttribute="leading" secondItem="DT3-DG-A1U" secondAttribute="leading" id="B08-if-tRU"/>
+                                                <constraint firstAttribute="bottom" secondItem="WBD-Bi-ISl" secondAttribute="bottom" id="UgZ-YN-y83"/>
+                                                <constraint firstAttribute="trailing" secondItem="WBD-Bi-ISl" secondAttribute="trailing" id="Zfi-Dc-moS"/>
+                                                <constraint firstItem="WBD-Bi-ISl" firstAttribute="top" secondItem="DT3-DG-A1U" secondAttribute="top" id="jPe-2g-i59"/>
+                                            </constraints>
+                                        </view>
+                                        <vibrancyEffect>
+                                            <blurEffect style="regular"/>
+                                        </vibrancyEffect>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="YfP-Dx-KPL" secondAttribute="bottom" id="0zB-Gk-6g5"/>
+                                    <constraint firstAttribute="trailing" secondItem="YfP-Dx-KPL" secondAttribute="trailing" id="eCd-hj-7qC"/>
+                                    <constraint firstItem="YfP-Dx-KPL" firstAttribute="leading" secondItem="ncf-dH-yyw" secondAttribute="leading" id="fVM-Nn-rG3"/>
+                                    <constraint firstItem="YfP-Dx-KPL" firstAttribute="top" secondItem="ncf-dH-yyw" secondAttribute="top" id="qZB-U9-bOe"/>
+                                </constraints>
+                            </view>
+                            <blurEffect style="prominent"/>
+                        </visualEffectView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="GHT-Jd-YVi" secondAttribute="bottom" priority="999" id="LNm-QN-tIA"/>
+                        <constraint firstItem="GHT-Jd-YVi" firstAttribute="leading" secondItem="sX3-hu-f8x" secondAttribute="leading" id="ZLk-ZG-Orj"/>
+                        <constraint firstAttribute="trailing" secondItem="GHT-Jd-YVi" secondAttribute="trailing" id="cor-nS-8MJ"/>
+                        <constraint firstItem="GHT-Jd-YVi" firstAttribute="top" secondItem="sX3-hu-f8x" secondAttribute="top" id="s8c-UJ-w0s"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="sX3-hu-f8x" firstAttribute="leading" secondItem="pq4-4A-WRA" secondAttribute="leading" id="9Vv-mX-seg"/>
+                <constraint firstAttribute="trailing" secondItem="sX3-hu-f8x" secondAttribute="trailing" id="E6e-2k-eac"/>
+                <constraint firstItem="sX3-hu-f8x" firstAttribute="top" secondItem="pq4-4A-WRA" secondAttribute="top" id="H3T-5d-1Af"/>
+                <constraint firstAttribute="bottom" secondItem="sX3-hu-f8x" secondAttribute="bottom" id="oWH-hR-MWg"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="blurViewBottomConstraint" destination="LNm-QN-tIA" id="9iG-kV-6lu"/>
+                <outlet property="nameLabel" destination="WBD-Bi-ISl" id="9ap-r3-4h2"/>
+            </connections>
+            <point key="canvasLocation" x="-486" y="133"/>
+        </view>
+    </objects>
+</document>
