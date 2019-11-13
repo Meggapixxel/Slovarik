@@ -26,7 +26,7 @@ class VC_Settings: BaseSystemTransitionTableViewController {
     private(set) lazy var presenter = Presenter(vc: self, cellConfig: { .init(topText: $0) } )
     
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
-        self?.presenter.updateFooterView(tableView: tableView, bottomSpacing: 1 / UIScreen.main.scale)
+        self?.presenter.updateFooterView()
     }
     
     override func viewDidLoad() {

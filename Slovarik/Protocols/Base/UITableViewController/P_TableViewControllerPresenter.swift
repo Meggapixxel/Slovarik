@@ -1,6 +1,6 @@
 import UIKit
 
-protocol P_TableViewControllerPresenter: P_ViewControllerPresenter, UITableViewDataSource {
+protocol P_TableViewControllerPresenter: P_ViewControllerPresenter, P_TableViewResizableFooter, UITableViewDataSource {
     
     associatedtype VIEWCONTROLLER: P_TableViewController
     associatedtype CELL: UITableViewCell & P_PresenterConfigurableView
@@ -12,15 +12,19 @@ protocol P_TableViewControllerPresenter: P_ViewControllerPresenter, UITableViewD
     var vc: VIEWCONTROLLER! { get }
 
     var headerView: UIView? { get }
-    var footerView: UIView? { get }
     
 }
 
 extension P_TableViewControllerPresenter {
 
     var tableView: UITableView! { vc.tableView }
-
+    
+    func updateFooterView() {
+        updateFooterView(tableView: tableView)
+    }
+    
 }
+
 
 fileprivate extension P_TableViewControllerPresenter {
 
@@ -32,7 +36,6 @@ fileprivate extension P_TableViewControllerPresenter {
         tableView.separatorInset.left = 0
         tableView.separatorColor = .clear
         tableView.tableHeaderView = headerView
-        tableView.tableFooterView = footerView
     }
 
 }
@@ -50,11 +53,10 @@ class BaseTableViewControllerPresenter<
     VIEWCONTROLLER: P_TableViewController,
     CELL: UITableViewCell & P_PresenterConfigurableView,
     ITEM: Equatable
->: BaseViewControllerPresenter<VIEWCONTROLLER>, P_TableViewControllerPresenter, P_FooterObservable {
+>: BaseViewControllerPresenter<VIEWCONTROLLER>, P_TableViewControllerPresenter, P_TableViewResizableFooter {
     
     let cellConfig: (ITEM) -> (CELL.PRESENTER)
     var headerView: UIView? { nil }
-    var footerView: UIView? { nil }
     
     required init(vc: VIEWCONTROLLER, cellConfig: @escaping (ITEM) -> (CELL.PRESENTER)) {
         self.cellConfig = cellConfig

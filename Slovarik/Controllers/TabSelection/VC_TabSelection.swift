@@ -31,7 +31,7 @@ class VC_TabSelection: UITableViewController, P_BaseJellyViewController {
     private var onTabChangeCallback: ((M_Tab) -> ())?
     
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
-        self?.presenter.updateFooterView(tableView: tableView, bottomSpacing: 0)
+        self?.presenter.updateFooterView()
     }
     
     override func viewDidLoad() {

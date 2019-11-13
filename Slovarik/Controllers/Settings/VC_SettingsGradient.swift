@@ -28,7 +28,7 @@ class VC_SettingsGradient: BaseSystemTransitionTableViewController {
     private(set) lazy var presenter = Presenter(vc: self, cellConfig: { .init(hexColor: $0) } )
     
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
-        self?.presenter.updateFooterView(tableView: tableView, bottomSpacing: .scale1)
+        self?.presenter.updateFooterView()
     }
     
     override var canBecomeFirstResponder: Bool { return true }

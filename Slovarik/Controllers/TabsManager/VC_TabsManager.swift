@@ -42,7 +42,7 @@ class VC_TabsManager: BaseSystemTransitionTableViewController {
     var editCallback: (() -> ())?
     
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
-        self?.presenter.updateFooterView(tableView: tableView, bottomSpacing: 0)
+        self?.presenter.updateFooterView()
     }
     
     override func viewDidLoad() {

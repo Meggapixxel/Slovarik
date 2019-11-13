@@ -62,7 +62,7 @@ extension VC_Settings: P_TableViewController {
     class Presenter: BaseTableViewControllerMultipleSectionPresenter<VC_Settings, LabelBlurBackgroundCell, String>, UITableViewDelegate {
         
         override var headerView: UIView? { vc.headerView.config { $0.backgroundColor = vc.tableView.separatorColor } }
-        override var footerView: UIView? { vc.footerView }
+        var footerView: UIView? { vc.footerView }
         
         override func initialUpdateUI() {
             super.initialUpdateUI()

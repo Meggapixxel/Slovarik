@@ -15,7 +15,7 @@ extension VC_SettingsGradient: P_TableViewController {
     class Presenter: BaseTableViewControllerMultipleSectionPresenter<VC_SettingsGradient, ColorCell, String>, UITableViewDelegate {
         
         override var headerView: UIView? { vc.headerView.config { $0.backgroundColor = vc.tableView.separatorColor } }
-        override var footerView: UIView? { vc.footerView }
+        var footerView: UIView? { vc.footerView }
         
         override func initialUpdateUI() {
             super.initialUpdateUI()

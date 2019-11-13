@@ -22,7 +22,7 @@ class VC_TabWords: UITableViewController {
     private(set) lazy var presenter = Presenter(vc: self, cellConfig: { .init(topText: $0.name, bottomText: $0.definition) } )
     
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
-        self?.presenter.updateFooterView(tableView: tableView, bottomSpacing: .scale1)
+        self?.presenter.updateFooterView()
     }
     private(set) lazy var headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1 / UIScreen.main.scale))
     private(set) lazy var footerView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))

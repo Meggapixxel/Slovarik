@@ -13,7 +13,7 @@ extension VC_TabWords: P_TableViewController {
     class Presenter: BaseTableViewControllerMultipleSectionPresenter<VC_TabWords, LabelBlurBackgroundCell, M_Word>, UITableViewDelegate {
         
         override var headerView: UIView? { vc.headerView.config { $0.backgroundColor = vc.tableView.separatorColor } }
-        override var footerView: UIView? { vc.footerView }
+        var footerView: UIView? { vc.footerView }
         
         private var sections = [String]()
         

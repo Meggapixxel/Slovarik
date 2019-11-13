@@ -32,6 +32,8 @@ extension VC_TabSelection: P_TableViewController {
         typealias ITEM = TabSelection
         typealias CELL = LabelBlurBackgroundCell
         
+        var footerViewBottomSpacing: CGFloat { 0 }
+        
         var items = [ITEM]()
         var cellPresenters = [CELL.PRESENTER]()
         let cellConfig: (ITEM) -> (CELL.PRESENTER)
@@ -83,7 +85,7 @@ extension VC_TabSelection: P_TableViewController {
     
 }
 
-extension VC_TabSelection.Presenter: P_FooterObservable {
+extension VC_TabSelection.Presenter: P_TableViewResizableFooter {
     
 }
 

@@ -99,7 +99,7 @@
 		BCE1E8632274F47700DD363A /* AppBottomDefaultBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE1E8622274F47700DD363A /* AppBottomDefaultBar.xib */; };
 		BCEEF6C82378C14E001A4DE0 /* UITableViewCell+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEF6C72378C14E001A4DE0 /* UITableViewCell+Custom.swift */; };
 		BCEEF6CA2378C15C001A4DE0 /* UIResponder+Next.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEF6C92378C15C001A4DE0 /* UIResponder+Next.swift */; };
-		BCEEF6CC2378C956001A4DE0 /* P_FooterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEF6CB2378C956001A4DE0 /* P_FooterObservable.swift */; };
+		BCEEF6CC2378C956001A4DE0 /* P_TableViewResizableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEF6CB2378C956001A4DE0 /* P_TableViewResizableFooter.swift */; };
 		BCEEF6CE2378CC77001A4DE0 /* P_TableViewControllerMultipleSectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEF6CD2378CC77001A4DE0 /* P_TableViewControllerMultipleSectionPresenter.swift */; };
 		BCEEF6D02378CCCB001A4DE0 /* P_TableViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEF6CF2378CCCB001A4DE0 /* P_TableViewControllerPresenter.swift */; };
 		BCF3A11F23776C3A00CA0F67 /* UITableView+Layout Header Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF3A11E23776C3A00CA0F67 /* UITableView+Layout Header Footer.swift */; };
@@ -211,7 +211,7 @@
 		BCE1E8622274F47700DD363A /* AppBottomDefaultBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppBottomDefaultBar.xib; sourceTree = "<group>"; };
 		BCEEF6C72378C14E001A4DE0 /* UITableViewCell+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Custom.swift"; sourceTree = "<group>"; };
 		BCEEF6C92378C15C001A4DE0 /* UIResponder+Next.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+Next.swift"; sourceTree = "<group>"; };
-		BCEEF6CB2378C956001A4DE0 /* P_FooterObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P_FooterObservable.swift; sourceTree = "<group>"; };
+		BCEEF6CB2378C956001A4DE0 /* P_TableViewResizableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P_TableViewResizableFooter.swift; sourceTree = "<group>"; };
 		BCEEF6CD2378CC77001A4DE0 /* P_TableViewControllerMultipleSectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P_TableViewControllerMultipleSectionPresenter.swift; sourceTree = "<group>"; };
 		BCEEF6CF2378CCCB001A4DE0 /* P_TableViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P_TableViewControllerPresenter.swift; sourceTree = "<group>"; };
 		BCF3A11E23776C3A00CA0F67 /* UITableView+Layout Header Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Layout Header Footer.swift"; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 				BC6E5D47226FAA290016066F /* P_JellyViewController.swift */,
 				BC6E5D48226FAA290016066F /* P_JellyViewControllerPresenter.swift */,
 				BC19F41D226D04C600180148 /* P_AppNavigationControllerDelegate.swift */,
-				BCEEF6CB2378C956001A4DE0 /* P_FooterObservable.swift */,
+				BCEEF6CB2378C956001A4DE0 /* P_TableViewResizableFooter.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -837,7 +837,7 @@
 				BC817BC222B00B0B00096EB8 /* UITextField.swift in Sources */,
 				BC577D11232D841D009C97D5 /* AddButtonBar.swift in Sources */,
 				BCF3A11F23776C3A00CA0F67 /* UITableView+Layout Header Footer.swift in Sources */,
-				BCEEF6CC2378C956001A4DE0 /* P_FooterObservable.swift in Sources */,
+				BCEEF6CC2378C956001A4DE0 /* P_TableViewResizableFooter.swift in Sources */,
 				BC846EF4237AB6C900C15F9B /* CGFloat.swift in Sources */,
 				BCF3A12A2378B29C00CA0F67 /* P_ViewPresenter.swift in Sources */,
 				BCEEF6CE2378CC77001A4DE0 /* P_TableViewControllerMultipleSectionPresenter.swift in Sources */,
