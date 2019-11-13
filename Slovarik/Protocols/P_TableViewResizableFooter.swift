@@ -44,3 +44,10 @@ extension P_TableViewResizableFooter {
 }
 
 
+extension P_TableViewResizableFooter where Self: P_TableViewControllerPresenter {
+    
+    func updateFooterView() {
+        updateFooterView(tableView: tableView)
+    }
+    
+}

@@ -14,7 +14,7 @@ class V_GradientWindow: UIWindow {
     private let solidView = UIView()
     private let gradientView = V_GradientView()
     private let alphaView = UIView(frame: UIScreen.main.bounds)
-    private lazy var gradientViewWidthConstraints: NSLayoutConstraint = gradientView.widthAnchor.constraint(equalToConstant: 0)
+    private lazy var gradientViewWidthConstraints = gradientView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
     
     convenience init() {
         self.init(frame: UIScreen.main.bounds)

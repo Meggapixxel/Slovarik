@@ -19,10 +19,6 @@ extension P_TableViewControllerPresenter {
 
     var tableView: UITableView! { vc.tableView }
     
-    func updateFooterView() {
-        updateFooterView(tableView: tableView)
-    }
-    
 }
 
 
@@ -53,10 +49,12 @@ class BaseTableViewControllerPresenter<
     VIEWCONTROLLER: P_TableViewController,
     CELL: UITableViewCell & P_PresenterConfigurableView,
     ITEM: Equatable
->: BaseViewControllerPresenter<VIEWCONTROLLER>, P_TableViewControllerPresenter, P_TableViewResizableFooter {
+>: BaseViewControllerPresenter<VIEWCONTROLLER>, P_TableViewControllerPresenter {
     
     let cellConfig: (ITEM) -> (CELL.PRESENTER)
     var headerView: UIView? { nil }
+    var footerView: UIView? { nil }
+    var footerViewBottomSpacing: CGFloat { .scale1 }
     
     required init(vc: VIEWCONTROLLER, cellConfig: @escaping (ITEM) -> (CELL.PRESENTER)) {
         self.cellConfig = cellConfig

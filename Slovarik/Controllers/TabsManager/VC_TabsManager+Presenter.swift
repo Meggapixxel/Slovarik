@@ -15,9 +15,8 @@ extension VC_TabsManager: P_TableViewController {
         private(set) var deletedTabs = [M_Tab]()
         
         override var headerView: UIView? { vc.headerView.config { $0.backgroundColor = vc.tableView.separatorColor } }
-        
-        var footerView: UIView? { vc.footerView }
-        var footerViewBottomSpacing: CGFloat { 0 }
+        override var footerView: UIView? { vc.footerView }
+        override var footerViewBottomSpacing: CGFloat { 0 }
         
         override func initialUpdateUI() {
             super.initialUpdateUI()
