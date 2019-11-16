@@ -30,7 +30,7 @@ extension SettingsCoordinator: P_VCSettingsDelegate {
     }
     
     func showGradient() {
-        navigationController.push { VC_SettingsGradient.newInstance }
+        navigationController.push { VC_SettingsGradient.newInstance?.config { $0.coordinatorDelegate = self } }
     }
     
 }

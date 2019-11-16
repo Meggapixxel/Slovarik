@@ -67,14 +67,12 @@ class VC_Tabs: TabmanViewController {
     var isSearch = false
     var keyboardHeight: CGFloat = 0
     
-    
     private(set) lazy var bottomDefaultBar = AppBottomDefaultBar.instantiateFromNib().config { $0.delegate = self }
     private(set) lazy var bottomSearchBar = AppBottomSearchBar.instantiateFromNib().config { $0.setState(.collapsed, animation: .none) }
     override var canBecomeFirstResponder: Bool { return true }
     override var inputAccessoryView: UIView? { return isSearch ? bottomSearchBar : bottomDefaultBar }
     
-    
-    var coordinatorDelegate: P_VCTabsDelegate?
+    weak var coordinatorDelegate: P_VCTabsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

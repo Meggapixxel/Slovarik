@@ -26,10 +26,9 @@ class MainCoordinator: P_Coordinator {
     }
     
     func start() {
-        navigationController.setViewControllers(
-            [VC_Tabs().config { $0.coordinatorDelegate = self }],
-            animated: !isInitial
-        )
+        navigationController.setRootViewController(animated: !isInitial) {
+            VC_Tabs.newInstance?.config { $0.coordinatorDelegate = self }
+        }
     }
 
 }

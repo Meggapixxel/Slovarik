@@ -41,7 +41,7 @@ class VC_SettingsGradient: BaseSystemTransitionTableViewController {
     override var canBecomeFirstResponder: Bool { return true }
     override var inputAccessoryView: UIView? { return bottomBar }
     
-    weak var delegate: P_VCSettingsGradientDelegate?
+    weak var coordinatorDelegate: P_VCSettingsGradientDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +73,7 @@ class VC_SettingsGradient: BaseSystemTransitionTableViewController {
 extension VC_SettingsGradient: P_AddButtonBarDelegate {
     
     func didTapAddButton() {
-        delegate?.presentColorPicker()
+        coordinatorDelegate?.presentColorPicker()
     }
     
 }
@@ -88,7 +88,7 @@ extension VC_SettingsGradient {
             allColors: allColors
         )
         gradientWindow.setColors(gradientColors, animated: true)
-        delegate?.dismissSettingsGradient()
+        coordinatorDelegate?.dismissSettingsGradient()
     }
     
 }

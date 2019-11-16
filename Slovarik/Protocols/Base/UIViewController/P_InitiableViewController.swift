@@ -71,6 +71,13 @@ extension UINavigationController {
         return self
     }
     
+    @discardableResult
+    @objc func setRootViewController(animated: Bool = true, completion: (() -> ())? = nil, _ closure: () -> (UIViewController?)) -> UIViewController {
+        guard let vc = closure() else { return self }
+        setViewControllers([vc], animated: animated)
+        return self
+    }
+    
     func first<T: UIViewController>() -> T? {
         return viewControllers.first as? T
     }

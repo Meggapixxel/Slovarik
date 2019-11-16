@@ -10,6 +10,12 @@ import UIKit
 import FirebaseAuth
 import MBProgressHUD
 
+protocol P_VCAuthDelegate: class {
+    
+    func didAuth()
+    
+}
+
 // MARK: - P_ViewController
 extension VC_Auth: P_ViewController {
     
@@ -19,6 +25,8 @@ extension VC_Auth: P_ViewController {
 }
 
 class VC_Auth: BaseSystemTransitionViewController {
+    
+    @Inject private var auth: Auth
     
     @IBOutlet private(set) weak var scrollView: UIScrollView!
     
@@ -43,6 +51,7 @@ class VC_Auth: BaseSystemTransitionViewController {
     }
     
     private(set) lazy var presenter = Presenter(vc: self)
+    weak var coordinatorDelegate: P_VCAuthDelegate?
 
 }
 
@@ -60,10 +69,10 @@ extension VC_Auth {
     @IBAction private func didTapSignIn() {
         guard let email = signInEmailTextField.textTrimmedNonEmpty, let password = signInPasswordTextField.textTrimmedNonEmpty else { return }
         let progressHud = MBProgressHUD.showAdded(to: view, animated: true)
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
+        auth.signIn(withEmail: email, password: password) { [weak self] user, error in
             progressHud.hide(animated: true)
             guard let _ = user else { return self?.showMessage(error?.localizedDescription, title: "Error") ?? {}() }
-            VC_Tabs().loadAsRoot()
+            self?.coordinatorDelegate?.didAuth()
         }
     }
     
@@ -76,10 +85,10 @@ extension VC_Auth {
         guard password == repeatPassword else { return showMessage("Passwords are not equal", title: "Error") }
         
         let progressHud = MBProgressHUD.showAdded(to: view, animated: true)
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] user, error in
+        auth.createUser(withEmail: email, password: password) { [weak self] user, error in
             progressHud.hide(animated: true)
             guard let _ = user else { return self?.showMessage(error?.localizedDescription, title: "Error") ?? {}() }
-            VC_Tabs().loadAsRoot()
+            self?.coordinatorDelegate?.didAuth()
         }
     }
     

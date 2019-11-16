@@ -20,11 +20,17 @@ class AuthCoordinator: P_Coordinator {
     }
     
     func start() {
-        navigationController.setViewControllers(
-            [VC_Auth()],
-            animated: !isInitial
-        )
+        navigationController.setRootViewController(animated: !isInitial) {
+            VC_Auth.newInstance?.config { $0.coordinatorDelegate = self }
+        }
     }
     
 }
 
+extension AuthCoordinator: P_VCAuthDelegate {
+    
+    func didAuth() {
+        delegate?.didAuth()
+    }
+    
+}
