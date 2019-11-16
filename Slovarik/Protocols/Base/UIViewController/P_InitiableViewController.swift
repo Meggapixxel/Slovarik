@@ -64,6 +64,7 @@ extension UIViewController {
 
 extension UINavigationController {
     
+    @discardableResult
     @objc override func push(animated: Bool = true, _ closure: () -> (UIViewController?)) -> UIViewController {
         guard let vc = closure() else { return self }
         pushViewController(vc, animated: animated)

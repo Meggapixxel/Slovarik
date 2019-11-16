@@ -77,7 +77,7 @@ extension VC_Settings: P_TableViewController {
             case .appearance:
                 guard let appearanceSection = AppearanceSection(rawValue: indexPath.row) else { return }
                 switch appearanceSection {
-                case .gradient: vc.push { VC_SettingsGradient.newInstance }
+                case .gradient: vc.coordinatorDelegate?.showGradient()
                 }
             case .account:
                 guard let accountSection = AccountSection(rawValue: indexPath.row) else { return }

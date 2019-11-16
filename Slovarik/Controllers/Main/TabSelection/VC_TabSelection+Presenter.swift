@@ -50,6 +50,7 @@ extension VC_TabSelection: P_TableViewController {
             super.initialUpdateUI()
             
             prepareTableViewControllerPresenter()
+            vc.navigationItem.title = "ALL TABS"
             vc.tableView.contentInsetAdjustmentBehavior = .never
             vc.tableView.bounces = false
         }

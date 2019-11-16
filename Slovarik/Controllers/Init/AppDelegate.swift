@@ -12,6 +12,7 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private lazy var auth = Auth.auth()
     private lazy var rootNavigationController = AppNavigationController()
     private lazy var appearanceManager = AppearanceManager.recovered
     private lazy var realtimeDatabase = RealtimeDatabase(isPersistenceEnabled: true)
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         $0.setColors(appearanceManager.gradientColors, animated: false)
         $0.makeKeyAndVisible()
     }
+    private lazy var appCoordinator = AppCoordinator(
+        window: gradientWindow,
+        navigationController: AppNavigationController(),
+        auth: auth
+    )
     
     var window: UIWindow?
 
@@ -28,18 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         DependencyManager {
+            Module { self.auth }
             Module { self.realtimeDatabase }
             Module { self.appearanceManager }
             Module { self.gradientWindow }
         }.build()
         
         window = gradientWindow
-        
-        if Auth.auth().currentUser != nil {
-            VC_Tabs().loadAsRoot()
-        } else {
-            VC_Auth().loadAsRoot()
-        }
+        appCoordinator.start()
         
         print("Environment: \(Environment.current.rawValue)")
         

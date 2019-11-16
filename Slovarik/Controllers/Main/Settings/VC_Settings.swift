@@ -1,13 +1,12 @@
-//
-//  SettingsVC.swift
-//  Slovarik
-//
-//  Created by Vadim Zhydenko on 4/21/19.
-//  Copyright © 2019 Vadim Zhydenko. All rights reserved.
-//
-
 import UIKit
 import FirebaseAuth
+
+protocol P_VCSettingsDelegate: class {
+    
+    func didSignOut()
+    func showGradient()
+    
+}
 
 extension VC_Settings: P_ViewController {
 
@@ -18,9 +17,10 @@ extension VC_Settings: P_ViewController {
 
 class VC_Settings: BaseSystemTransitionTableViewController {
  
-    @Inject var database: RealtimeDatabase
+    @Inject private var auth: Auth
+    @Inject private var database: RealtimeDatabase
     
-    private(set) lazy var headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1 / UIScreen.main.scale))
+    private(set) lazy var headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: .scale1))
     private(set) lazy var footerView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     
     private(set) lazy var presenter = Presenter(vc: self, cellConfig: { .init(topText: $0) } )
@@ -28,6 +28,8 @@ class VC_Settings: BaseSystemTransitionTableViewController {
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
         self?.presenter.updateFooterView()
     }
+    
+    weak var coordinatorDelegate: P_VCSettingsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,19 +51,19 @@ class VC_Settings: BaseSystemTransitionTableViewController {
     
     func logOut() {
         do {
-            try Auth.auth().signOut()
+            try auth.signOut()
         } catch {
             return showError(error)
         }
-        VC_Auth().loadAsRoot()
+        coordinatorDelegate?.didSignOut()
     }
     
     func deleteAccount() {
         database.removeTabs { [weak self] (error) in
             guard error == nil else { return { self?.showError(error) }() }
-            Auth.auth().currentUser?.delete { [weak self] (error) in
+            self?.auth.currentUser?.delete { [weak self] (error) in
                 guard error == nil else { return { self?.showError(error) }() }
-                VC_Auth().loadAsRoot()
+                self?.coordinatorDelegate?.didSignOut()
             }
         }
     }

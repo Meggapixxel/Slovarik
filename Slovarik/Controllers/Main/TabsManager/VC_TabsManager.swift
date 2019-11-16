@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol VCTabsManagerDelegate: class {
+    
+    func didUpdateTabs(_ tabs: [M_Tab])
+    
+}
+
 extension VC_TabsManager: P_ViewController {
 
     static var initiableResource: InitiableResource { .manual }
@@ -15,31 +21,16 @@ extension VC_TabsManager: P_ViewController {
     
 }
 
-extension VC_TabsManager: TextFieldBlurBackgroundCellDelegate {
-    
-    func didEndEditing(_ textField: UITextField, atIndexPath indexPath: IndexPath) {
-        defer { presenter.reloadItem(atIndex: indexPath.row) }
-        guard let newTabName = textField.textTrimmedNonEmpty else { return }
-        let currentTab = presenter.items[indexPath.row]
-        if presenter.items.contains(where: { $0 != currentTab && $0.name == newTabName } ) {
-            showAppError(.tabExists)
-        } else {
-            presenter.items[indexPath.row].name = newTabName
-        }
-    }
-    
-}
-
 class VC_TabsManager: BaseSystemTransitionTableViewController {
     
-    @Inject var database: RealtimeDatabase
+    @Inject private var database: RealtimeDatabase
     
     private(set) lazy var presenter = Presenter(vc: self, cellConfig: { .init(text: $0.name, delegate: self) } )
     private(set) lazy var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveEdit))
     private(set) lazy var headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1 / UIScreen.main.scale))
     private(set) lazy var footerView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
     
-    var editCallback: (() -> ())?
+    weak var coordinatorDelegate: VCTabsManagerDelegate?
     
     private lazy var tableViewObserver = tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] (tableView, _) in
         self?.presenter.updateFooterView()
@@ -70,9 +61,23 @@ extension VC_TabsManager {
             guard error == nil else { return self.showError(error) }
             self.database.updateTabs(tabsToUpdate) { (error) in
                 guard error == nil else { return self.showError(error) }
-                self.editCallback?()
-                self.pop()
+                self.coordinatorDelegate?.didUpdateTabs(tabsToUpdate)
             }
+        }
+    }
+    
+}
+
+extension VC_TabsManager: TextFieldBlurBackgroundCellDelegate {
+    
+    func didEndEditing(_ textField: UITextField, atIndexPath indexPath: IndexPath) {
+        defer { presenter.reloadItem(atIndex: indexPath.row) }
+        guard let newTabName = textField.textTrimmedNonEmpty else { return }
+        let currentTab = presenter.items[indexPath.row]
+        if presenter.items.contains(where: { $0 != currentTab && $0.name == newTabName } ) {
+            showAppError(.tabExists)
+        } else {
+            presenter.items[indexPath.row].name = newTabName
         }
     }
     

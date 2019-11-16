@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol P_VCSettingsGradientDelegate: class {
+    
+    func dismissSettingsGradient()
+    func presentColorPicker()
+    
+}
+
 extension VC_SettingsGradient: P_ViewController {
 
     static var initiableResource: InitiableResource { .manual }
@@ -17,8 +24,8 @@ extension VC_SettingsGradient: P_ViewController {
 
 class VC_SettingsGradient: BaseSystemTransitionTableViewController {
     
-    @Inject var gradientWindow: V_GradientWindow
-    @Inject var appearanceManager: AppearanceManager
+    @Inject private var gradientWindow: V_GradientWindow
+    @Inject private var appearanceManager: AppearanceManager
     
     private(set) lazy var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapSave))
     private(set) lazy var headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: .scale1))
@@ -34,6 +41,7 @@ class VC_SettingsGradient: BaseSystemTransitionTableViewController {
     override var canBecomeFirstResponder: Bool { return true }
     override var inputAccessoryView: UIView? { return bottomBar }
     
+    weak var delegate: P_VCSettingsGradientDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,17 +73,7 @@ class VC_SettingsGradient: BaseSystemTransitionTableViewController {
 extension VC_SettingsGradient: P_AddButtonBarDelegate {
     
     func didTapAddButton() {
-        present {
-            JellyNavigationController()
-                .config { $0.presenter.presentation(in: self) }
-                .push(animated: false) {
-                    VC_ColorPicker.newInstance?.config {
-                        $0.colorSelection = { hexString in
-                            self.presenter.appendToAllColors(hexString)
-                        }
-                    }
-                }
-        }
+        delegate?.presentColorPicker()
     }
     
 }
@@ -90,12 +88,7 @@ extension VC_SettingsGradient {
             allColors: allColors
         )
         gradientWindow.setColors(gradientColors, animated: true)
-//        gradientWindow.gradientView.setColors(
-//            gradientColors.compactMap { $0.hexUIColor },
-//            animated: true,
-//            duration: Double(UINavigationController.hideShowBarDuration)
-//        )
-        pop()
+        delegate?.dismissSettingsGradient()
     }
     
 }

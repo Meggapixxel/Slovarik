@@ -1,12 +1,10 @@
-//
-//  NewTabVC.swift
-//  Slovarik
-//
-//  Created by Vadim Zhydenko on 4/23/19.
-//  Copyright © 2019 Vadim Zhydenko. All rights reserved.
-//
-
 import UIKit
+
+protocol VCWordNewDelegate: class {
+    
+    func didAppendWord(_ word: M_Word, toTab tab: M_Tab)
+    
+}
 
 extension VC_WordNew: P_ViewController {
 
@@ -17,7 +15,7 @@ extension VC_WordNew: P_ViewController {
 
 class VC_WordNew: UIViewController, P_BaseJellyViewController {
     
-    @Inject var database: RealtimeDatabase
+    @Inject private var database: RealtimeDatabase
 
     @IBOutlet private(set) weak var rootStackView: UIStackView!
     @IBOutlet private(set) weak var nameTextField: UITextField!
@@ -33,6 +31,7 @@ class VC_WordNew: UIViewController, P_BaseJellyViewController {
     // MARK: END - BaseJellyViewController
     
     private(set) lazy var presenter = Presenter(vc: self)
+    weak var coordinatorDelegate: VCWordNewDelegate?
     
     var validationTextInputs: [P_TextInput] {
         return [nameTextField, definitionTextView]
@@ -77,7 +76,7 @@ extension VC_WordNew {
         let localWord = M_Word(name: name, definition: definition)
         database.addWord(localWord, forTabId: tabId) { [weak self] (word, error) in
             guard let word = word else { return self?.showError(error) ?? {}() }
-            self?.successCallback?(word, selectedTab)
+            self?.coordinatorDelegate?.didAppendWord(word, toTab: selectedTab)
             self?.dismiss(animated: true)
         }
     }

@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol VCTabNewDelegate: class {
+    
+    func didAppendTab(_ tab: M_Tab)
+    
+}
+
 extension VC_TabNew: P_ViewController {
 
     static var initiableResource: InitiableResource { .xib }
@@ -17,7 +23,7 @@ extension VC_TabNew: P_ViewController {
 
 class VC_TabNew: UIViewController, P_BaseJellyViewController {
 
-    @Inject var database: RealtimeDatabase
+    @Inject private var database: RealtimeDatabase
     
     // MARK: BEGIN - BaseJellyViewController
     var jellyPresenter: P_BaseJellyPresenter { return presenter }
@@ -33,7 +39,7 @@ class VC_TabNew: UIViewController, P_BaseJellyViewController {
     
     private(set) lazy var presenter = Presenter(vc: self)
     var allTabs = [M_Tab]()
-    var successCallback: ((M_Tab) -> ())?
+    weak var coordinatorDelegate: VCTabNewDelegate?
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag) { [weak self] in
@@ -75,8 +81,7 @@ extension VC_TabNew {
             let localTab = M_Tab(name: name, position: tabs.count, quizQuestion: quizQuestion)
             self?.database.addTab(localTab) { [weak self] (newTab, error) in
                 guard let newTab = newTab else { return self?.showError(error) ?? {}() }
-                self?.successCallback?(newTab)
-                self?.dismiss(animated: true)
+                self?.coordinatorDelegate?.didAppendTab(newTab)
             }
         }
     }

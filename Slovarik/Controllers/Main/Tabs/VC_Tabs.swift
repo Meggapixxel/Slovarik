@@ -10,6 +10,16 @@ import UIKit
 import Pageboy
 import Tabman
 
+protocol P_VCTabsDelegate: class {
+    
+    func beginSync()
+    func addTab(_ tabs: [M_Tab])
+    func addWord(currentTab: M_Tab, tabs: [M_Tab])
+    func editTabs(_ tabs: [M_Tab])
+    func showSettings()
+    
+}
+
 // MARK: - P_ViewController
 extension VC_Tabs: P_ViewController {
 
@@ -20,11 +30,10 @@ extension VC_Tabs: P_ViewController {
 
 class VC_Tabs: TabmanViewController {
     
-    @Inject var gradientWindow: V_GradientWindow
-    @Inject var database: RealtimeDatabase
+    @Inject private var gradientWindow: V_GradientWindow
+    @Inject private var database: RealtimeDatabase
     
     private(set) lazy var presenter = Presenter(vc: self)
-    
     
     private(set) lazy var bar = V_TMBar()
     private(set) lazy var barAddTabButton = V_TMButton(
@@ -65,11 +74,12 @@ class VC_Tabs: TabmanViewController {
     override var inputAccessoryView: UIView? { return isSearch ? bottomSearchBar : bottomDefaultBar }
     
     
+    var coordinatorDelegate: P_VCTabsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        beginSync()
+        coordinatorDelegate?.beginSync()
     }
     
     override func calculateRequiredInsets() -> Insets {
@@ -101,48 +111,45 @@ class VC_Tabs: TabmanViewController {
         gradientWindow.scrollGradientView(toPagePosition: pagePosition)
     }
     
-    
-    private func appendNewTab(_ newTab: M_Tab) {
-        guard let newTabContentVC = VC_TabWords.newInstance else { return }
-        viewControllers.append(newTabContentVC.config { $0.tab = newTab } )
-        insertPage(at: viewControllers.count - 1, then: .scrollToUpdate)
-    }
-    
-    private func appendNewWord(_ newWord: M_Word, forTab tab: M_Tab) {
-        guard let vc = viewControllers.first(where: { $0.tab == tab } ) else { return }
-        vc.presenter.appendNewWord(newWord)
-        // TODO: - Scroll to visible new word
-    }
-    
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
         currentViewController?.setEditing(editing, animated: animated)
     }
     
+    
+    
 }
 
 
-// MARK: - Sync
+// MARK: - Help
 extension VC_Tabs {
-    
-    func beginSync() {
-        let vc = VC_Sync().config { vc in
-            vc.successCallback = { [weak self] tabs in
-                self?.endSync(tabs.sorted(by: { $0.position < $1.position } ))
-                vc.dismiss(animated: true) {
-                    self?.becomeFirstResponder()
-                }
-            }
-        }
-        present(vc, animated: true)
-    }
     
     func endSync(_ tabs: [M_Tab]) {
         viewControllers = tabs.compactMap { tab in
             VC_TabWords.newInstance?.config { $0.tab = tab }
         }
         reloadData()
+        becomeFirstResponder()
+    }
+    
+    func setTabs(_ tabs: [M_Tab]) {
+        viewControllers = tabs.compactMap { tab in
+            VC_TabWords.newInstance?.config { $0.tab = tab }
+        }
+        reloadData()
+    }
+    
+    func appendNewTab(_ newTab: M_Tab) {
+        guard let newTabContentVC = VC_TabWords.newInstance else { return }
+        viewControllers.append(newTabContentVC.config { $0.tab = newTab } )
+        insertPage(at: viewControllers.count - 1, then: .scrollToUpdate)
+    }
+    
+    func appendNewWord(_ newWord: M_Word, forTab tab: M_Tab) {
+        guard let vc = viewControllers.first(where: { $0.tab == tab } ) else { return }
+        vc.presenter.appendNewWord(newWord)
+        // TODO: - Scroll to visible new word
     }
     
 }
@@ -152,37 +159,13 @@ extension VC_Tabs {
 extension VC_Tabs {
     
     @objc private func didTapAddTab() {
-        present {
-            JellyNavigationController()
-                .config { $0.presenter.presentation(in: self) }
-                .push(animated: false) {
-                    VC_TabNew.newInstance?.config {
-                        $0.successCallback = self.appendNewTab
-                        $0.allTabs = self.viewControllers.compactMap { $0.tab }
-                    }
-                }
-        }
+        let tabs = viewControllers.compactMap { $0.tab }
+        coordinatorDelegate?.addTab(tabs)
     }
     
     @objc private func didTapEditTabs() {
         let tabs = viewControllers.compactMap { $0.tab }
-        push {
-            VC_TabsManager().config {
-                $0.presenter.setItems(tabs)
-                $0.editCallback = {
-                    self.database.tabs { [weak self] (tabs, error) in
-                          if let tabs = tabs {
-                            self?.viewControllers = tabs.compactMap { tab in
-                                VC_TabWords.newInstance?.config { $0.tab = tab }
-                            }
-                            self?.reloadData()
-                        } else {
-                            self?.showMessage(error?.localizedDescription, title: "Error")
-                        }
-                    }
-                }
-            }
-        }
+        coordinatorDelegate?.editTabs(tabs)
     }
     
     @objc private func didTapCancelSearch() {
@@ -197,15 +180,7 @@ extension VC_Tabs {
             self.view.setNeedsLayout()
         }
     }
-    
-    @objc private func didTapSettings() {
-        push { VC_Settings.newInstance }
-    }
-    
-    @IBAction private func didTapProfile() {
-        push { VC_Auth.newInstance }
-    }
-    
+
 }
 
 
@@ -241,17 +216,9 @@ extension VC_Tabs: P_AppBottomDefaultBar {
     
     func addWord() {
         guard let currentTabContentVC = currentViewController as? VC_TabWords else { return }
-        present {
-            JellyNavigationController()
-                .config { $0.presenter.presentation(in: self) }
-                .push(animated: false) {
-                    VC_WordNew.newInstance?.config {
-                        $0.selectedTab = currentTabContentVC.tab
-                        $0.successCallback = self.appendNewWord
-                        $0.allTabs = self.viewControllers.compactMap { $0.tab }
-                    }
-                }
-        }
+        let tab = currentTabContentVC.tab
+        let tabs = viewControllers.compactMap { $0.tab }
+        coordinatorDelegate?.addWord(currentTab: tab, tabs: tabs)
     }
     
     func searchWords() {
@@ -267,7 +234,7 @@ extension VC_Tabs: P_AppBottomDefaultBar {
     }
     
     func openSettings() {
-        push { VC_Settings.newInstance }
+        coordinatorDelegate?.showSettings()
     }
     
     func setEditing(_ isEditing: Bool, sender: UIButton) {

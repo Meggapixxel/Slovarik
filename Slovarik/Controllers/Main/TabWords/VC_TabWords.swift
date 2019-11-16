@@ -17,7 +17,7 @@ extension VC_TabWords: P_ViewController {
 
 class VC_TabWords: UITableViewController {
     
-    @Inject var database: RealtimeDatabase
+    @Inject private var database: RealtimeDatabase
     
     private(set) lazy var presenter = Presenter(vc: self, cellConfig: { .init(topText: $0.name, bottomText: $0.definition) } )
     

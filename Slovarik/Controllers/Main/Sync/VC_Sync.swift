@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol P_VCSyncDelegate: class {
+    
+    func didEndSync(tabs: [M_Tab])
+    
+}
+
 extension VC_Sync: P_InitiableViewController {
 
     static var initiableResource: InitiableResource { .xib }
@@ -16,8 +22,9 @@ extension VC_Sync: P_InitiableViewController {
 
 class VC_Sync: UIViewController {
 
-    @Inject var database: RealtimeDatabase
-    var successCallback: (([M_Tab]) -> ())?
+    @Inject private var database: RealtimeDatabase
+    
+    weak var coordinatorDelegate: P_VCSyncDelegate?
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -27,10 +34,11 @@ class VC_Sync: UIViewController {
     
     private func sync() {
         database.tabs { [weak self] (tabs, error) in
+            guard let `self` = self else { return }
             if let tabs = tabs {
-                self?.successCallback?(tabs)
+                self.coordinatorDelegate?.didEndSync(tabs: tabs)
             } else {
-                self?.showMessage(error?.localizedDescription, title: "Error")
+                self.showMessage(error?.localizedDescription, title: "Error")
             }
         }
     }

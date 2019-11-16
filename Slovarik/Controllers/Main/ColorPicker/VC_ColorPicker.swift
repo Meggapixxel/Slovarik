@@ -9,6 +9,13 @@
 import UIKit
 import Jelly
 
+protocol P_VCColorPickerDelegate: class {
+    
+    func dismissColorPicker()
+    func didSelectColor(_ color: String)
+    
+}
+
 extension VC_ColorPicker: P_ViewController {
 
     static var initiableResource: InitiableResource { .xib }
@@ -27,22 +34,19 @@ class VC_ColorPicker: UIViewController, P_BaseJellyViewController {
     private(set) lazy var saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didTapSave))
     @IBOutlet private weak var colorPickerView: ChromaColorPicker!
     
-    var colorSelection: ((String) -> ())?
-    
     private(set) lazy var presenter = Presenter(vc: self)
+    weak var coordinatorDelegate: P_VCColorPickerDelegate?
     
 }
-
 
 extension VC_ColorPicker {
     
     @IBAction private func didTapCancel() {
-        navigationController?.dismiss(animated: true)
+        coordinatorDelegate?.dismissColorPicker()
     }
     
     @IBAction private func didTapSave() {
-        colorSelection?(colorPickerView.hexLabel.text ?? "#FFFFFF")
-        navigationController?.dismiss(animated: true)
+        coordinatorDelegate?.didSelectColor(colorPickerView.hexLabel.text ?? "#FFFFFF")
     }
     
 }
